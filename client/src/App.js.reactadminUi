@@ -1,0 +1,30 @@
+import React from 'react';
+import { Admin, Resource,ListGuesser,EditGuesser } from 'react-admin';
+import jsonServerProvider from 'ra-data-json-server';
+import {UserList} from "./components/users";
+import {PostList,PostEdit,PostCreate } from "./components/posts";
+import {PostList2} from "./components/posts2";
+import { createMuiTheme } from '@material-ui/core/styles';
+import PostIcon from '@material-ui/icons/Book';
+
+const theme = createMuiTheme({
+  palette: {
+    type: 'dark', // Switching the dark mode on is a single property value change.
+  },
+});
+//add theme={theme} to App
+
+//connect the data provider to the REST endpoint
+const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
+
+function App() {
+   return (
+       <Admin dataProvider={dataProvider}>
+           <Resource name="users" list={UserList}/>
+           <Resource name="posts2" list={PostList} edit={PostEdit} create={PostCreate} icon={PostIcon}/>
+           <Resource name="posts" list={PostList2} icon={PostIcon}/>
+       </Admin>
+   );
+}
+
+export default App;
